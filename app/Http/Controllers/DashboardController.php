@@ -164,8 +164,8 @@ class DashboardController extends Controller
             ->whereDate('date', '<=', $end)
             ->sum('amount');
 
-        $cracks = Record::whereDate('date', '>=', $start)
-            ->whereDate('date', '<=', $end)
+        $cracks = Record::whereDate('record_date', '>=', $start)
+            ->whereDate('record_date', '<=', $end)
             ->sum('cracks');
 
 
