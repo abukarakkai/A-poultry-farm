@@ -109,35 +109,116 @@
     </aside>
 
     <!-- Mobile sidebar overlay and drawer -->
-    <div id="mobileSidebar" class="fixed inset-0 z-50 bg-black/50 hidden md:hidden"></div>
-    <aside id="mobileDrawer" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-300 transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
+        <aside id="mobileDrawer"
+        class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-300 transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
         <div class="px-4 py-6 flex flex-col gap-3">
             <button id="closeMobileSidebar" class="mb-4 text-gray-700 text-lg font-bold">✕ Close</button>
             <!-- Add same links as desktop sidebar -->
-        </div>
-
-        <a href="{{ route('pens.index') }}" class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     
+            <a href="{{ route('dashboard') }}"
+                class="flex items-center gap-3 px-4 py-3 border-r-4 border-yellow-600 bg-yellow-50 text-gray-600 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 12l9-9 9 9v8a3 3 0 0 1-3 3h-3v-6h-6v6H6a3 3 0 0 1-3-3v-8z" />
+                </svg>
+                <span class="text-gray-800">Dashboard</span>
+            </a>
+            <a href="{{ route('pens.index') }}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M20 12l-8 5-8-5V7l8-5 8 5v5z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22V12" />
                 </svg>
-                <span class="md:block hidden">Pens / Batches</span>
-        </a>
+                <span class="text-gray-800">Pens / Batches</span>
 
-    <a href="{{ route('records.index') }}"
-        class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M9 12h6m-6 4h6m2-10h-8l-2 2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3l-2-2z" />
-        </svg>
-        <span class="md:block hidden">Daily Records</span>
-      </a> 
+            </a>
+            <a href="{{ route('records.index') }}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2-10h-8l-2 2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-3l-2-2z" />
+                </svg>
+                <span class="text-gray-800">Daily Records</span>
+            </a>
+            <!-- Sell Orders -->
+            <a href="{{ route('sales.index') }}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+                <!-- Heroicon: Shopping Cart -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13l-1.6 8h12.2M7 13h10m-5 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                <span class="text-gray-800">Sale Orders</span>
+            </a>
+            <a href="{{ route('expenses.index') }}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+                <!-- Heroicon: Shopping Cart -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 7h18M3 7v14h18V7M3 7l9 6 9-6" />
+                </svg>
 
-            <!-- Daily Records -->
+                <span class="text-gray-800">Expenses</span>
+            </a>
+            <a href="{{ route('reports.index') }}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+                <!-- Heroicon: Chart Bar -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M3 3v18h18M9 17v-6m4 6v-10m4 10v-4" />
+                </svg>
+                <span class="text-gray-800">Reports</span>
+            </a>
+            <a href=" {{ route('settings.index')}}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+                <!-- Heroicon: Cog -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                </svg>
+                <span class="text-gray-800">Settings</span>
+            </a>
 
-        
+            <!-- <a href="/profile">Profile</a> -->
+
+            @if(auth()->user()->isSuperAdmin())
+
+             <a href="{{ route('users.index') }}"
+                    class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5V4H2v16h5m10 0v-2a4 4 0 0 0-3-3.87M7 20v-2a4 4 0 0 1 3-3.87m0 0a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+                    </svg>
+
+                    <span class="text-gray-800">Manage Users</span>
+            </a>
+
+            <!-- <a href="{{ route('users.index') }}"
+                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0z" />
+                </svg>
+                <span class="md:block hidden"> Manage Users</span>
+            </a> -->
+            @endif
+
+        </div>
+
     </aside>
+
 
     <!-- Main content -->
     <div class="flex-1 flex flex-col overflow-hidden md:ml-64">
