@@ -8,7 +8,7 @@
                 class="flex items-center gap-1 sm:gap-2 bg-yellow-600 text-white px-2 py-2 text-xs sm:px-4 sm:py-2 sm:text-base rounded-md hover:bg-yellow-700 transition">
                 <span>+</span>
                 <span class="hidden sm:inline">Add Record</span>
-                <span class="sm:hidden">Add</span>
+                <span class="sm:hidden">Add Record</span>
             </button>
 
             </div>
@@ -169,7 +169,7 @@
         </div>
 
 
-        <div class="bg-white rounded-2xl shadow">
+        <div class="bg-white rounded-lg shadow">
 
             <!-- FILTER -->
                 <!-- your filter stays unchanged -->
@@ -219,37 +219,37 @@
             </div>
 
             <!-- TABLE -->
-                <div class="overflow-x-auto border border-gray-200 rounded-lg">
+                <div class="overflow-x-auto border  border-gray-200">
                     <!-- Reduced min-width and used table-auto to let columns hug the content -->
                     <table class="w-full table-auto text-[10px] sm:text-sm" id="recordTable">
 
                         <!-- HEADER: Tightened padding from px-4 to px-1.5/px-2 -->
                         <thead class="bg-yellow-50 text-gray-500 uppercase text-[8px] sm:text-xs sticky top-0 z-10 border-b">
                             <tr>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left w-6">#</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left">Date</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left">Pen</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left">Crates</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left hidden sm:table-cell">Cracks</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left">Feed</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left hidden md:table-cell">Cull</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left">Mort.</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-left hidden lg:table-cell">Notes</th>
-                                <th class="px-1.5 py-2 sm:px-3 sm:py-5 text-center">Actions</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left w-6">#</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left">Date</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left">Pen</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left">Crates</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left hidden sm:table-cell">Cracks</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left">Feed</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left hidden md:table-cell">Cull</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left">Mort.</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-left hidden lg:table-cell">Notes</th>
+                                <th class="px-1.5 py-4 sm:px-3 sm:py-6 text-center">Actions</th>
                             </tr>
                         </thead>
 
                         <!-- BODY -->
-                        <tbody class="divide-y divide-gray-100 bg-white">
+                        <tbody class="divide-y divide-gray-100 px-1 bg-white">
                             @foreach($records as $record)
                             <tr class="hover:bg-gray-50 transition-colors">
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-gray-400">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-gray-400">
                                     {{ $loop->iteration }}
                                 </td>
 
                                 <!-- whitespace-nowrap keeps the date on one line -->
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 whitespace-nowrap font-medium">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 whitespace-nowrap font-medium">
                                     @if(\Carbon\Carbon::parse($record->record_date)->isToday())
                                         <span class="text-blue-600 font-bold">Today</span>
                                     @else
@@ -257,37 +257,37 @@
                                     @endif
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 font-medium text-gray-800">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 font-medium text-gray-800">
                                     {{ $record->pen->name }}
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-green-600 font-semibold">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-green-600 font-semibold">
                                     {{ $record->eggs_collected }}
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-red-500 hidden sm:table-cell">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-red-500 hidden sm:table-cell">
                                     {{ $record->cracks }}
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6">
                                     {{ $record->feed_given }}
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-red-600 hidden md:table-cell">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-red-600 hidden md:table-cell">
                                     {{ $record->cull }}
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-red-600 font-medium">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-red-600 font-medium">
                                     {{ $record->mortality }}
                                 </td>
 
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-gray-500 hidden lg:table-cell truncate max-w-[100px]"
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-gray-500 hidden lg:table-cell truncate max-w-[100px]"
                                     title="{{ $record->notes }}">
                                     {{ Str::limit($record->notes, 20) }}
                                 </td>
 
                                 <!-- Actions: Right aligned to push data closer together -->
-                                <td class="px-1.5 py-2 sm:px-3 sm:py-5 text-right">
+                                <td class="px-1.5 py-4 sm:px-3 sm:py-6 text-right">
                                     <div class="flex justify-end gap-2 sm:gap-3">
                                         <button  onclick="viewRecord({{ $record->id }})" class="font-semibold  hover:underline text-blue-600 text-[10px] sm:text-sm">View</button>
                                         <button onclick="openEditModal({{ $record->id }})"  class="font-semibold  hover:underline text-yellow-600 text-[10px] sm:text-sm">Edit</button>
@@ -302,7 +302,7 @@
                 </div>
 
             <!-- PAGINATION -->
-            <div class="sticky bottom-0 bg-white py-2 sm:py-3 flex justify-center gap-2 border-t z-20 text-xs sm:text-sm">
+            <div class="sticky bottom-0 bg-white py-4 sm:py-4 flex justify-center gap-2 border-t z-20 text-xs sm:text-sm">
                 <div id="recordPagination"></div>
             </div>
 
