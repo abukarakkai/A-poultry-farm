@@ -50,10 +50,10 @@
                 <!-- Logo -->
                  
                 <a href="#home" class="text-2xl font-semibold font-berkshire tracking-wide">
-                                        <!-- @if(setting('logo')) -->
+                                        @if(setting('logo'))
                 <img src="{{ asset('storage/'.setting('logo')) }}" 
-                     class="h-20 mx-auto">
-            <!-- @endif -->
+                             class="h-20 mx-auto">
+                            @endif
 
                     PoultryFarm
                 </a>
