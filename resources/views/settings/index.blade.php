@@ -9,49 +9,49 @@
     border-color: #f59e0b;
 }
 </style>
-<section class="p-0 flex-1 overflow-auto">
+<section class="py-6 flex-1 overflow-auto ">
 
     @if(session('success'))
     <div class="mb-4 bg-green-100 text-green-700 p-3 rounded">
         {{ session('success') }}
     </div>
     @endif
-<div class="max-w-5xl mx-auto bg-white p-6 rounded-2xl shadow">
+    <div class="max-w-5xl mx-auto bg-white p-6 rounded-2xl shadow">
 
 
-    <h2 class="text-xl font-bold mb-6">Settings</h2>
-    <!-- Tabs -->
-    <div class="flex gap-4 border-b mb-6">
-        <button onclick="showTab('farm')" class="tab-btn">Farm Info</button>
-        <button onclick="showTab('profile')" class="tab-btn">Profile</button>
-        <button onclick="showTab('system')" class="tab-btn">System</button>
+        <h2 class="text-xl font-bold mb-6">Settings</h2>
+        <!-- Tabs -->
+        <div class="flex gap-4 border-b mb-6">
+            <button onclick="showTab('farm')" class="tab-btn">Farm Info</button>
+            <button onclick="showTab('profile')" class="tab-btn">Profile</button>
+            <button onclick="showTab('system')" class="tab-btn">System</button>
+        </div>
+
+        <!-- FARM INFO -->
+        <div id="farm" class="tab-content">
+            <form method="POST" action="{{ route('settings.system') }}" enctype="multipart/form-data">
+                @csrf
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+                    <input name="farm_name" value="{{ $setting->farm_name ?? '' }}" placeholder="Farm Name"
+                        class="border rounded-lg px-3 py-2">
+
+                    <input name="phone" value="{{ $setting->phone ?? '' }}" placeholder="Phone"
+                        class="border rounded-lg px-3 py-2">
+
+                    <input name="address" value="{{ $setting->address ?? '' }}" placeholder="Address"
+                        class="border rounded-lg px-3 py-2 md:col-span-2">
+
+                    <!-- Logo -->
+            <div>
+        <label class="text-sm">Logo</label>
+        <input type="file" name="logo" id="logoInput" class="block mt-1">
+
+        <img id="logoPreview"
+            src="{{ $setting && $setting->logo ? asset('storage/'.$setting->logo) : '' }}"
+            class="h-16 mt-2 rounded border">
     </div>
-
-    <!-- FARM INFO -->
-    <div id="farm" class="tab-content">
-        <form method="POST" action="{{ route('settings.system') }}" enctype="multipart/form-data">
-            @csrf
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
-                <input name="farm_name" value="{{ $setting->farm_name ?? '' }}" placeholder="Farm Name"
-                    class="border rounded-lg px-3 py-2">
-
-                <input name="phone" value="{{ $setting->phone ?? '' }}" placeholder="Phone"
-                    class="border rounded-lg px-3 py-2">
-
-                <input name="address" value="{{ $setting->address ?? '' }}" placeholder="Address"
-                    class="border rounded-lg px-3 py-2 md:col-span-2">
-
-                <!-- Logo -->
-        <div>
-    <label class="text-sm">Logo</label>
-    <input type="file" name="logo" id="logoInput" class="block mt-1">
-
-    <img id="logoPreview"
-         src="{{ $setting && $setting->logo ? asset('storage/'.$setting->logo) : '' }}"
-         class="h-16 mt-2 rounded border">
-</div>
 
 
             </div>

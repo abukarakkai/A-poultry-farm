@@ -122,22 +122,12 @@
     </aside>
 
     <!-- Mobile sidebar overlay and drawer -->
-<<<<<<< HEAD
         <aside id="mobileDrawer"
-=======
-    <div id="mobileSidebar" class="fixed inset-0 z-50 bg-black/50 hidden md:hidden"></div>
-
-    <aside id="mobileDrawer"
->>>>>>> 573cb06 (Updated Ui and responsiveness)
         class="fixed inset-y-0 left-0 w-64 bg-white border-r border-gray-300 transform -translate-x-full transition-transform duration-300 z-50 md:hidden">
         <div class="px-4 py-6 flex flex-col gap-3">
             <button id="closeMobileSidebar" class="mb-4 text-gray-700 text-lg font-bold">✕ Close</button>
             <!-- Add same links as desktop sidebar -->
-<<<<<<< HEAD
                      
-=======
-
->>>>>>> 573cb06 (Updated Ui and responsiveness)
             <a href="{{ route('dashboard') }}"
                 class="flex items-center gap-3 px-4 py-3 border-r-4 border-yellow-600 bg-yellow-50 text-gray-600 rounded-md">
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -214,7 +204,6 @@
 
             @if(auth()->user()->isSuperAdmin())
 
-<<<<<<< HEAD
              <a href="{{ route('users.index') }}"
                     class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
 
@@ -225,18 +214,6 @@
                     </svg>
 
                     <span class="text-gray-800">Manage Users</span>
-=======
-            <a href="{{ route('users.index') }}"
-                class="flex items-center gap-3 px-4 py-3 hover:bg-yellow-50 text-gray-700 rounded-md transition">
-
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M17 20h5V4H2v16h5m10 0v-2a4 4 0 0 0-3-3.87M7 20v-2a4 4 0 0 1 3-3.87m0 0a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
-                </svg>
-
-                <span class="text-gray-800">Manage Users</span>
->>>>>>> 573cb06 (Updated Ui and responsiveness)
             </a>
 
             <!-- <a href="{{ route('users.index') }}"
@@ -268,45 +245,49 @@
                 </svg>
             </button>
             <span class="text-xl font-bold text-yellow-600">@yield('page-title', 'Dashboard')</span>
-            <div class="relative">
-                <!-- Profile Button -->
-                <button id="profileMenuBtn" class="flex items-center gap-2 focus:outline-none">
+            
+                <div class="relative">
+                    <!-- Profile Button -->
+                    <button id="profileMenuBtn"
+                        class="flex items-center gap-2 focus:outline-none">
 
-                    <!-- Avatar Circle -->
-                    <div
-                        class="w-9 h-9 rounded-full bg-yellow-600 flex items-center justify-center text-white font-bold">
-                        {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        <!-- Avatar Circle -->
+                        <div class="w-9 h-9 rounded-full bg-yellow-600 flex items-center justify-center text-white font-bold">
+                            {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                        </div>
+
+                        <!-- Name (hidden on mobile) -->
+                        <span class="hidden sm:block text-gray-700 text-sm">
+                            {{ auth()->user()->name }}
+                        </span>
+
+                        <!-- Dropdown Icon -->
+                        <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+
+                    <!-- Dropdown Menu -->
+                    <div id="profileDropdown"
+                        class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+
+                        <!-- Profile -->
+                        <a href="/profile"
+                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                            👤 Profile
+                        </a>
+
+                        <!-- Logout -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
+                                🚪 Logout
+                            </button>
+                        </form>
                     </div>
-
-                    <!-- Name (hidden on mobile) -->
-                    <span class="hidden sm:block text-gray-700 text-sm">
-                        {{ auth()->user()->name }}
-                    </span>
-
-                    <!-- Dropdown Icon -->
-                    <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
-
-                <!-- Dropdown Menu -->
-                <div id="profileDropdown"
-                    class="hidden absolute right-0 mt-2 w-40 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
-
-                    <!-- Profile -->
-                    <a href="/profile" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                        👤 Profile
-                    </a>
-
-                    <!-- Logout -->
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button type="submit" class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100">
-                            🚪 Logout
-                        </button>
-                    </form>
-                </div>
-            </div>
+                </div>            
         </div>
 
         <!-- Page content -->
@@ -330,6 +311,20 @@
 
     @vite('resources/js/app.js')
     <script>
+const btn = document.getElementById('profileMenuBtn');
+    const dropdown = document.getElementById('profileDropdown');
+
+    btn.addEventListener('click', () => {
+        dropdown.classList.toggle('hidden');
+    });
+
+    // Close when clicking outside
+    window.addEventListener('click', function (e) {
+        if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
+            dropdown.classList.add('hidden');
+        }
+    });
+    
         const sidebarLinks = document.querySelectorAll('#sidebar a, #mobileDrawer a');
         const mobileMenuBtn = document.getElementById("mobileMenuBtn");
         const mobileDrawer = document.getElementById("mobileDrawer");
@@ -386,26 +381,6 @@
             }, 3000);
         }
 
-
-
-        const btn = document.getElementById('profileMenuBtn');
-        const dropdown = document.getElementById('profileDropdown');
-
-        btn.addEventListener('click', () => {
-            dropdown.classList.toggle('hidden');
-        });
-
-        // Close when clicking outside
-        window.addEventListener('click', function (e) {
-            if (!btn.contains(e.target) && !dropdown.contains(e.target)) {
-                dropdown.classList.add('hidden');
-            }
-        });
     </script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-
-</html>
->>>>>>> 573cb06 (Updated Ui and responsiveness)

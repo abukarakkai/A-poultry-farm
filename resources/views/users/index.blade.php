@@ -66,7 +66,7 @@
 
         <table class="w-full text-sm border">
 
-            <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+            <thead class="bg-yellow-50 text-xs uppercase text-gray-600">
                 <tr>
                     <th class="px-4 py-2 text-left">Name</th>
                     <th class="px-4 py-2 text-left">Email</th>
