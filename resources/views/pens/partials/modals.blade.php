@@ -1,5 +1,5 @@
 <!-- Add Pen Modal -->
-<div id="penModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+<div id="penModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
 
   <div class="bg-white p-6 rounded-xl w-full max-w-2xl shadow-lg">
 
@@ -89,8 +89,7 @@
 </div>
 
 <!-- View Pen Modal -->
-<div id="viewPenModal"
-     class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+<div id="viewPenModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
 
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl p-8 relative">
 
@@ -221,7 +220,7 @@ Update Pen
 </div>
 </div> -->
 
-<div id="editPenModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+<div id="editPenModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
 
     <div class="bg-white p-6 rounded-xl w-full max-w-2xl shadow-lg max-h-[90vh] overflow-y-auto relative">
 
@@ -291,7 +290,7 @@ Update Pen
     </div>
 </div>
 
-<div id="deletePenModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex justify-center items-center z-50">
+<div id="deletePenModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
 
     <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
 

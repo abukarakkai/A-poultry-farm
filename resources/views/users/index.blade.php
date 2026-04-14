@@ -2,7 +2,7 @@
 
 
 
-<div class="p-6 bg-white rounded-xl shadow">
+<div class="py-10 px-6 bg-white rounded-xl shadow">
 
     <div class="flex justify-between mb-4">
         <h2 class="text-lg font-bold">Users</h2>
@@ -11,58 +11,114 @@
             class="bg-green-600 text-white px-4 py-2 rounded-lg">
             + Add User
         </button>
-        <!-- <a href="{{ route('users.create') }}" 
-           class="bg-green-600 text-white px-4 py-2 rounded-lg">
-            + Add User
-        </a> -->
     </div>
 
-    <table class="w-full border">
-        <thead class="bg-gray-100">
-            <tr>
-                <th class="p-2">Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+<div class="bg-white rounded-xl shadow">
 
-        <tbody>
-            @foreach($users as $user)
-            <tr class="border-t">
-                <td class="p-2">{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
+    <!-- ================= MOBILE CARDS ================= -->
+    <div class="sm:hidden space-y-3">
 
-                <td>
-                    <span class="px-2 py-1 rounded text-xs
-                        {{ $user->role === 'super_admin' ? 'bg-red-500 text-white' : 'bg-gray-300' }}">
-                        {{ $user->role }}
-                    </span>
-                </td>
+        @foreach($users as $user)
+        <div class="border rounded-xl p-3 shadow-sm bg-white hover:bg-yellow-50">
 
-                <td class="flex gap-2 p-2">
-                    <button onclick="openEditModal({{ $user->id }}, '{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}')" 
-                        class="text-blue-600">
-                        Edit
-                    </button>
-                    <!-- <a href="{{ route('users.edit', $user) }}"  -->
-                       <!-- class="text-blue-600">Edit</a> -->
+            <!-- Top: Name + Role -->
+            <div class="flex justify-between items-center mb-2">
+                <h3 class="font-semibold text-sm">
+                    {{ $user->name }}
+                </h3>
+
+                <span class="px-2 py-0.5 rounded text-[10px]
+                    {{ $user->role === 'super_admin' ? 'bg-red-500 text-white' : 'bg-gray-300 text-gray-700' }}">
+                    {{ str_replace('_', ' ', $user->role) }}
+                </span>
+            </div>
+
+            <!-- Email -->
+            <p class="text-xs text-gray-500 truncate" title="{{ $user->email }}">
+                {{ $user->email }}
+            </p>
+
+            <!-- Actions -->
+            <div class="flex justify-end gap-3 mt-3">
+
+                <button 
+                    onclick="openEditModal({{ $user->id }}, '{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}')" 
+                    class="text-blue-600 text-xs font-medium">
+                    ✏️ Edit
+                </button>
+
+                <button 
+                    onclick="openDeleteModal({{ $user->id }}, '{{ $user->name }}')" 
+                    class="text-red-600 text-xs font-medium">
+                    🗑️ Delete
+                </button>
+
+            </div>
+
+        </div>
+        @endforeach
+
+    </div>
 
 
-                        <button onclick="openDeleteModal({{ $user->id }}, '{{ $user->name }}')" 
-                            class="text-red-600">
-                            Delete
-                        </button>
-                    <!-- <form method="POST" action="{{ route('users.destroy', $user) }}">
-                        @csrf @method('DELETE')
-                        <button class="text-red-600">Delete</button>
-                    </form> -->
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- ================= DESKTOP TABLE ================= -->
+    <div class="hidden sm:block overflow-x-auto">
 
+        <table class="w-full text-sm border">
+
+            <thead class="bg-gray-100 text-xs uppercase text-gray-600">
+                <tr>
+                    <th class="px-4 py-2 text-left">Name</th>
+                    <th class="px-4 py-2 text-left">Email</th>
+                    <th class="px-4 py-2 text-left">Role</th>
+                    <th class="px-4 py-2 text-left">Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach($users as $user)
+                <tr class="border-t hover:bg-gray-50">
+
+                    <td class="px-4 py-2 font-medium">
+                        {{ $user->name }}
+                    </td>
+
+                    <td class="px-4 py-2">
+                        {{ $user->email }}
+                    </td>
+
+                    <td class="px-4 py-2">
+                        <span class="px-2 py-1 rounded text-xs
+                            {{ $user->role === 'super_admin' ? 'bg-red-500 text-white' : 'bg-gray-300 text-gray-700' }}">
+                            {{ str_replace('_', ' ', $user->role) }}
+                        </span>
+                    </td>
+
+                    <td class="px-2 py-2">
+                        <div class="flex gap-3">
+                            <button 
+                                onclick="openEditModal({{ $user->id }}, '{{ $user->name }}', '{{ $user->email }}', '{{ $user->role }}')" 
+                                class="text-blue-600 hover:underline">
+                                Edit
+                            </button>
+
+                            <button 
+                                onclick="openDeleteModal({{ $user->id }}, '{{ $user->name }}')" 
+                                class="text-red-600 hover:underline">
+                                Delete
+                            </button>
+                        </div>
+                    </td>
+
+                </tr>
+                @endforeach
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
 </div>
 
 

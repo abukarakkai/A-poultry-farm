@@ -1,22 +1,26 @@
 <x-app-layout>
 
-  <section class="p-4 overflow-auto flex-1">
-    <div class="p-4 md:p-6 bg-gray-50 min-h-screen">
+  <section class="py-4 overflow-auto flex-1">
+    <div class="min-h-screen">
 
-      <h1 class="text-2xl font-bold text-gray-800 mb-6">Monthly Report</h1>
+    <div class="flex justify-between bg-white py-2 px-2 items-center mb-6" >
+            <h1 class="text-2xl font-bold text-gray-800 mb-6">Monthly Report</h1>
 
-      <!-- 🔷 Month Selector -->
-      <form method="GET" class="mb-6 flex flex-col md:flex-row gap-4 items-start md:items-center">
-        <label class="text-gray-700 font-medium">Select Month:</label>
+          <!-- 🔷 Month Selector -->
+          <form method="GET" class="mb-6 flex flex-col md:flex-row gap-4 items-end md:items-center">
+            <input type="month" name="month" value="{{ request('month', now()->format('Y-m')) }}"
+              class="border border-gray-300 rounded-lg p-2">
 
-        <input type="month" name="month" value="{{ request('month', now()->format('Y-m')) }}"
-          class="border border-gray-300 rounded-lg px-3 py-2">
+            <button class="flex text-right gap-1 sm:gap-2 bg-yellow-600 text-white px-2 py-2 text-xs sm:px-4 sm:py-2 sm:text-base rounded-md hover:bg-yellow-700 transition">
+                <span>+</span>
+                <span class="hidden sm:inline">Generate Report</span>
+                <span class="sm:hidden">Generate</span>
 
-        <button class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded-full">
-          Generate Report
-        </button>
-      </form>
+            </button>
+          </form>
 
+
+    </div>
       <!-- 🔷 Production Table -->
       <div class="overflow-x-auto mb-6">
         <table class="min-w-full text-sm bg-white rounded-xl shadow">
@@ -188,189 +192,16 @@
       <!-- 🔷 Print -->
       <div class="text-right py-4">
         <a href="{{ route('reports.pdf', ['month' => request('month')]) }}"
-          class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-xl">
+          class="bg-green-800 hover:bg-green-900 text-white px-6 py-2 rounded-xl">
           Export PDF
         </a> <span>  </span>
-        <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-xl">
+        <!-- <button onclick="window.print()" class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-2 rounded-xl">
           Print / Export
-        </button>
+        </button> -->
       </div>
 
     </div>
 
-
-    <div
-      class="relative mx-auto my-10 w-[210mm] min-h-[297mm] bg-white p-12 shadow-lg border border-gray-200 overflow-hidden print:shadow-none print:my-0">
-
-      <!-- Watermark Logo -->
-      <div class="absolute inset-0 flex items-center justify-center opacity-[0.07] pointer-events-none">
-        <img src="/logo.png" class="w-96 grayscale">
-      </div>
-
-      <!-- Header Section -->
-      <header class="relative z-10 border-b-4 border-green-700 pb-4 mb-8">
-        <div class="flex justify-between items-start">
-          <div>
-            <h1 class="text-3xl font-extrabold text-green-800 tracking-tight">
-              Arrayhaan Poultry farm
-            </h1>
-            <p class="text-sm text-gray-600 mt-1 uppercase tracking-wide font-medium">
-              Official Production & Financial Report
-            </p>
-          </div>
-          <div class="text-right">
-            <p class="text-sm font-bold text-gray-800">{{ now()->format('F j, Y') }}</p>
-            <p class="text-xs text-gray-500">Kano State, Nigeria</p>
-          </div>
-        </div>
-      </header>
-
-      <!-- Content Body -->
-      <div class="relative z-10 space-y-8">
-
-        <!-- Production Table -->
-        <section>
-          <h2 class="text-lg font-bold text-green-800 border-l-4 border-green-700 pl-2 mb-3">Production Summary</h2>
-          <table class="w-full text-left border-collapse">
-            <thead>
-              <tr class="bg-green-50 text-green-900 uppercase text-xs">
-                <th class="p-2 border">Pen</th>
-                <th class="p-2 border">Crates</th>
-                <th class="p-2 border">Feed</th>
-                <th class="p-2 border">Mortality</th>
-              </tr>
-            </thead>
-            <tbody class="text-sm divide-y divide-gray-200">
-              @foreach($reports as $r)
-              <tr>
-                <td class="p-2 border">{{ $r->pen }}</td>
-                <td class="p-2 border">{{ $r->crates }}</td>
-                <td class="p-2 border">{{ $r->feed }}</td>
-                <td class="p-2 border text-red-600">{{ $r->mortality }}</td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </section>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
-          <!-- Income Section -->
-          <div class="bg-green-50 p-6 rounded-2xl shadow-sm border border-green-100">
-            <h3 class="text-lg font-bold text-green-800 mb-4 flex items-center gap-2">
-              <span>🥚</span> Income Breakdown
-            </h3>
-            <div class="space-y-3">
-              @foreach($incomeBreakdown as $income)
-              <div class="flex justify-between items-center border-b border-green-200 pb-2">
-                <div>
-                  <p class="font-medium text-gray-800">{{ $income->income_type }}</p>
-                  <p class="text-xs text-gray-500">
-                    {{ number_format($income->total_qty) }} sold at ₦{{ number_format($income->price, 2) }}
-                  </p>
-                </div>
-                <span class="font-bold text-green-700">₦{{ number_format($income->total_sum, 2) }}</span>
-              </div>
-              @endforeach
-            </div>
-          </div>
-
-          <!-- Expense Section -->
-          <div class="bg-red-50 p-6 rounded-2xl shadow-sm border border-red-100">
-            <h3 class="text-lg font-bold text-red-800 mb-4 flex items-center gap-2">
-              <span>💸</span> Expense Breakdown
-            </h3>
-            <div class="space-y-3">
-              @foreach($expenseBreakdown as $expense)
-              <div class="flex justify-between items-center border-b border-red-200 pb-2">
-                <div>
-                  <p class="font-medium text-gray-800">{{ $expense->title }}</p>
-                  <p class="text-xs text-gray-500">
-                    {{ number_format($expense->total_qty) }} units at ₦{{ number_format($expense->unit_price, 2) }}
-                  </p>
-                </div>
-                <span class="font-bold text-red-700">-₦{{ number_format($expense->total_sum, 2) }}</span>
-              </div>
-              @endforeach
-            </div>
-          </div>
-        </div>
-
-
-        <!-- Income & Expenses Grid -->
-        <div class="grid grid-cols-2 gap-8">
-          <!-- Income -->
-          <section>
-            <h2 class="text-sm font-bold text-gray-700 mb-2 uppercase">Income</h2>
-            <table class="w-full text-sm border">
-              @foreach($incomeSummary as $i)
-              <tr class="border-b">
-                <td class="p-2 bg-gray-50">{{ $i->income_type }}</td>
-                <td class="p-2 text-right">₦{{ number_format($i->amount) }}</td>
-              </tr>
-              @endforeach
-              <tr class="font-bold bg-green-50">
-                <td class="p-2">Total</td>
-                <td class="p-2 text-right">₦{{ number_format($totalIncome) }}</td>
-              </tr>
-            </table>
-          </section>
-
-          <!-- Expenses -->
-          <section>
-            <h2 class="text-sm font-bold text-gray-700 mb-2 uppercase">Expenses</h2>
-            <table class="w-full text-sm border">
-              @foreach($expenseSummary as $e)
-              <tr class="border-b">
-                <td class="p-2 bg-gray-50">{{ $e->category }}</td>
-                <td class="p-2 text-right">₦{{ number_format($e->amount) }}</td>
-              </tr>
-              @endforeach
-              <tr class="font-bold bg-red-50 text-red-700">
-                <td class="p-2">Total</td>
-                <td class="p-2 text-right">₦{{ number_format($totalExpense) }}</td>
-              </tr>
-            </table>
-          </section>
-        </div>
-
-        <!-- Profit Summary Card -->
-        <div class="bg-gray-800 text-white p-4 rounded-lg flex justify-between items-center">
-          <div>
-            <p class="text-xs uppercase text-gray-400">Net Profit</p>
-            <p class="text-2xl font-bold">₦{{ number_format($profit) }}</p>
-          </div>
-          <div class="text-right text-xs">
-            <p>Income: ₦{{ number_format($totalIncome) }}</p>
-            <p>Expenses: ₦{{ number_format($totalExpense) }}</p>
-          </div>
-        </div>
-
-        <!-- Charts Grid -->
-
-        <!-- <div class="grid grid-cols-2 gap-6 print:block">
-              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-            <div class="border p-2 rounded print:mb-4">
-                <h3 class="text-xs font-bold mb-2 text-center">Egg Production Trend</h3>
-                <canvas id="productionChart"></canvas>
-            </div>
-            <div class="border p-2 rounded">
-                <h3 class="text-xs font-bold mb-2 text-center">Income vs Expense</h3>
-                <canvas id="financeChart"></canvas>
-            </div>
-        </div> -->
-
-        <canvas id="productionChart"></canvas>
-        <canvas id="financeChart"></canvas>
-      </div>
-
-      <!-- Footer -->
-      <footer
-        class="absolute bottom-12 left-12 right-12 border-t-2 border-gray-100 pt-4 text-center text-[10px] text-gray-500 uppercase tracking-widest">
-        <p>Maiduguri Road, Makole Kano State, Nigeria</p>
-        <p class="mt-1 font-bold">+234 703 867 1413 | +234 703 560 3273</p>
-      </footer>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

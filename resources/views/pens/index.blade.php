@@ -1,13 +1,19 @@
 <x-app-layout>
     <!-- Page Header -->
-    <section class="flex-1 p-4 bg-gray-50 min-h-screen">
+    <section class="flex-1 py-6 bg-transparent min-h-screen">
 
         <div class="flex justify-between items-center mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">Pen / Batch Management</h1>
+            <h1 class="text-lg sm:text-xl md:text-2xl font-bold text-gray-800">
+                <span class="sm:hidden">Pens</span>
+                <span class="hidden sm:inline">Pen / Batch Management</span>
+            </h1>
             <button onclick="openPenModal()"
-                class="bg-yellow-600 text-white px-4 py-2 rounded-md hover:bg-yellow-700 transition">
-                + Add New Pen
+                class="flex items-center gap-1 sm:gap-2 bg-yellow-600 text-white px-2 py-1 text-xs sm:px-4 sm:py-2 sm:text-base rounded-md hover:bg-yellow-700 transition">
+                <span>+</span>
+                <span class="hidden sm:inline">Add New Pen</span>
+                <span class="sm:hidden">Add</span>
             </button>
+
         </div>
 
         <!-- Summary Cards -->
@@ -26,7 +32,7 @@
             </div>
         </div>
 
-        
+
 
         <!-- Pen Table -->
         <div class="bg-white rounded-lg shadow overflow-x-auto">
@@ -43,99 +49,75 @@
                         <th class="px-6 py-3 text-left">Actions</th>
                     </tr>
                 </thead>
-<tbody class="divide-y">
+                <tbody class="divide-y">
 
-@foreach($pens as $pen)
+                    @foreach($pens as $pen)
 
-<tr id="pen-row-{{ $pen->id }} class="hover:bg-gray-50">
-<td class="px-6 py-4 font-medium text-gray-400">{{ $loop->iteration }}</td>
-<td class="px-6 py-4 font-medium">
-    {{ $pen->name }}
-</td>
-<td class="px-6 py-4">
-    {{ $pen->capacity }}
-</td>
+                    <tr id="pen-row-{{ $pen->id }} class=" hover:bg-gray-50">
+                        <td class="px-6 py-4 font-medium text-gray-400">{{ $loop->iteration }}</td>
+                        <td class="px-6 py-4 font-medium">
+                            {{ $pen->name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $pen->capacity }}
+                        </td>
 
-<td class="px-6 py-4">
-    {{ $pen->initial_birds }}
-</td>
+                        <td class="px-6 py-4">
+                            {{ $pen->initial_birds }}
+                        </td>
 
-<td class="px-6 py-4 text-red-600">
-    {{ $pen->type }}
-</td>
+                        <td class="px-6 py-4 text-red-600">
+                            {{ $pen->type }}
+                        </td>
 
-<td class="px-6 py-4 text-green-600">
- {{ $pen->start_date }}</td>
+                        <td class="px-6 py-4 text-green-600">
+                            {{ $pen->start_date }}</td>
+
+                        <td class="px-6 py-4">
+
+                            @if($pen->status == 'Active')
+                            <span class="px-2 py-1 text-xs bg-green-100 text-green-600 rounded-full">
+                                Active
+                            </span>
+
+                            @elseif($pen->status == 'Maintenance')
+                            <span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-600 rounded-full">
+                                Maintenance
+                            </span>
+
+                            @else
+                            <span class="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded-full">
+                                Empty
+                            </span>
+                            @endif
+
+                        </td>
+
+                        <td class="px-6 py-4 flex gap-2">
+
+                            <button onclick="viewPen({{ $pen->id }})" class="text-blue-600 hover:underline">
+                                View
+                            </button>
+
+                            <button onclick="editPen({{ $pen->id }})" class="text-yellow-600 hover:underline">
+                                Editing
+                            </button>
 
 
-<!-- <td class="px-6 py-4">
-    <span class="px-2 py-1 text-xs bg-green-100 text-green-600 rounded-full">
-        {{ $pen->status }}
-    </span>
-</td> -->
-<td class="px-6 py-4">
+                            <button onclick="openDeleteModal({{ $pen->id }})" class="text-red-600 hover:text-red-800">
+                                Delete
+                            </button>
 
-@if($pen->status == 'Active')
-<span class="px-2 py-1 text-xs bg-green-100 text-green-600 rounded-full">
-Active
-</span>
+                        </td>
 
-@elseif($pen->status == 'Maintenance')
-<span class="px-2 py-1 text-xs bg-yellow-100 text-yellow-600 rounded-full">
-Maintenance
-</span>
+                    </tr>
 
-@else
-<span class="px-2 py-1 text-xs bg-gray-200 text-gray-600 rounded-full">
-Empty
-</span>
-@endif
+                    @endforeach
 
-</td>
-
-<td class="px-6 py-4 flex gap-2">
-
-<!-- <button
-class="text-blue-600 hover:underline view-btn"
-data-id="{{ $pen->id }}">
-View
-</button> -->
-
-<button
-    onclick="viewPen({{ $pen->id }})"
-    class="text-blue-600 hover:underline">
-    View
-</button>
-
-<!-- <button
-class="text-yellow-600 hover:underline edit-btn"
-data-id="{{ $pen->id }}">
-Edit
-</button> -->
-<button onclick="editPen({{ $pen->id }})"
-class="text-yellow-600 hover:underline">
-Editing
-</button>
-
-<!-- <button
-class="text-red-600 hover:underline delete-btn"
-data-id="{{ $pen->id }}">
-Delete
-</button> -->
-
-<button onclick="openDeleteModal({{ $pen->id }})"
-    class="text-red-600 hover:text-red-800">
-    Delete
-</button>
-
-</td>
-
-</tr>
-
-@endforeach
-
-</tbody>            </table>
+                </tbody>
+            </table>
         </div>
+        
     </section>
 
     <!-- Modals -->
@@ -155,89 +137,89 @@ Delete
 
         function savePen() {
 
-    const data = {
-        penName: document.getElementById('penName').value,
-        birdType: document.getElementById('birdType').value,
-        capacity: document.getElementById('capacity').value,
-        birdCount: document.getElementById('birdCount').value,
-        startDate: document.getElementById('startDate').value,
-        status: document.getElementById('status').value,
-        note: document.getElementById('note').value
-    };
+            const data = {
+                penName: document.getElementById('penName').value,
+                birdType: document.getElementById('birdType').value,
+                capacity: document.getElementById('capacity').value,
+                birdCount: document.getElementById('birdCount').value,
+                startDate: document.getElementById('startDate').value,
+                status: document.getElementById('status').value,
+                note: document.getElementById('note').value
+            };
 
-    fetch("{{ route('pens.store') }}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.json())
-    .then(data => {
+            fetch("{{ route('pens.store') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => response.json())
+                .then(data => {
 
-        if(data.success){
+                    if (data.success) {
 
-            closePenModal();
+                        closePenModal();
 
-            // alert("Pen saved successfully");
+                        // alert("Pen saved successfully");
 
-            // location.reload();
-            showToast("Pen created successfully");
+                        // location.reload();
+                        showToast("Pen created successfully");
 
-setTimeout(()=>{
-    location.reload();
-},1500);
+                        setTimeout(() => {
+                            location.reload();
+                        }, 1500);
+
+                    }
+
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+        }
+
+
+        function viewPen(id) {
+
+            fetch(`/pens/${id}`)
+
+                .then(res => res.json())
+
+                .then(pen => {
+
+                    document.getElementById('viewName').innerText = pen.name
+                    document.getElementById('viewType').innerText = pen.type
+                    document.getElementById('viewCapacity').innerText = pen.capacity ?? '-'
+                    document.getElementById('viewBirds').innerText = pen.initial_birds
+                    document.getElementById('viewStartDate').innerText = pen.start_date
+                    document.getElementById('viewNotes').innerText = pen.notes ?? '-'
+
+                    let statusEl = document.getElementById('viewStatus')
+                    statusEl.innerText = pen.status ?? 'Active'
+
+                    if (pen.status === 'Active') {
+                        statusEl.className = "bg-green-100 text-green-600 px-2 py-1 rounded"
+                    }
+                    else if (pen.status === 'Maintenance') {
+                        statusEl.className = "bg-yellow-100 text-yellow-700 px-2 py-1 rounded"
+                    }
+                    else {
+                        statusEl.className = "bg-gray-200 text-gray-700 px-2 py-1 rounded"
+                    }
+
+                    document.getElementById('viewPenModal').classList.remove('hidden')
+                    document.getElementById('viewPenModal').classList.add('flex')
+
+                })
 
         }
 
-    })
-    .catch(error => {
-        console.error("Error:", error);
-    });
-}
+        function closeViewModal() {
 
+            document.getElementById('viewPenModal').classList.add('hidden')
 
-function viewPen(id){
+        }
 
-fetch(`/pens/${id}`)
-
-.then(res => res.json())
-
-.then(pen => {
-
-document.getElementById('viewName').innerText = pen.name
-document.getElementById('viewType').innerText = pen.type
-document.getElementById('viewCapacity').innerText = pen.capacity ?? '-'
-document.getElementById('viewBirds').innerText = pen.initial_birds
-document.getElementById('viewStartDate').innerText = pen.start_date
-document.getElementById('viewNotes').innerText = pen.notes ?? '-'
-
-let statusEl = document.getElementById('viewStatus')
-statusEl.innerText = pen.status ?? 'Active'
-
-if(pen.status === 'Active'){
-statusEl.className = "bg-green-100 text-green-600 px-2 py-1 rounded"
-}
-else if(pen.status === 'Maintenance'){
-statusEl.className = "bg-yellow-100 text-yellow-700 px-2 py-1 rounded"
-}
-else{
-statusEl.className = "bg-gray-200 text-gray-700 px-2 py-1 rounded"
-}
-
-document.getElementById('viewPenModal').classList.remove('hidden')
-document.getElementById('viewPenModal').classList.add('flex')
-
-})
-
-}
-
-function closeViewModal(){
-
-document.getElementById('viewPenModal').classList.add('hidden')
-
-}
-
-</script>
+    </script>
 </x-app-layout>

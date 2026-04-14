@@ -1,5 +1,6 @@
 <x-app-layout>
     <section class="py-4 flex-1 overflow-auto">
+<<<<<<< HEAD
 
             <div class="flex justify-between items-center mb-6">
                         <h2 class="text-2xl font-bold text-gray-800 mb-6">Daily Records</h2>
@@ -12,6 +13,20 @@
             </button>
 
             </div>
+=======
+
+        <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Daily Records</h2>
+            <!-- Daily Record Form -->
+            <button onclick="openRecordModal()"
+                class="flex items-center gap-1 sm:gap-2 bg-yellow-600 text-white px-2 py-2 text-xs sm:px-4 sm:py-2 sm:text-base rounded-md hover:bg-yellow-700 transition">
+                <span>+</span>
+                <span class="hidden sm:inline">Add Record</span>
+                <span class="sm:hidden">Add Record</span>
+            </button>
+
+        </div>
+>>>>>>> 573cb06 (Updated Ui and responsiveness)
 
             <!-- <div id="addRecordModal" class="fixed inset-0 bg-black/50 hidden z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
 
@@ -219,7 +234,11 @@
             </div>
 
             <!-- TABLE -->
+<<<<<<< HEAD
                 <div class="overflow-x-auto border  border-gray-200">
+=======
+                <div class="overflow-x-auto border border-gray-200">
+>>>>>>> 573cb06 (Updated Ui and responsiveness)
                     <!-- Reduced min-width and used table-auto to let columns hug the content -->
                     <table class="w-full table-auto text-[10px] sm:text-sm" id="recordTable">
 
@@ -306,6 +325,7 @@
                 <div id="recordPagination"></div>
             </div>
 
+<<<<<<< HEAD
                         <div class="py-6">
                 <span> </span>
             </div>
@@ -321,6 +341,22 @@
         <!-- Daily Records Table -->
     <script>
 
+=======
+            <div class="py-6">
+                <span> </span>
+            </div>
+
+        </div>
+
+    </section>
+
+    @include('records.partials.modals')
+
+
+        <!-- Daily Records Table -->
+    <script>
+
+>>>>>>> 573cb06 (Updated Ui and responsiveness)
         function openRecordModal() {
             document.getElementById('addRecordModal').classList.remove('hidden');
         }
@@ -647,4 +683,8 @@
 
     </script>
 
+<<<<<<< HEAD
 </x-app-layout>
+=======
+</x-app-layout>
+>>>>>>> 573cb06 (Updated Ui and responsiveness)

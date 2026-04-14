@@ -176,141 +176,77 @@
         <div class="grid md:grid-cols-2 gap-4">
 
             <!-- 📅 DAILY -->
-            <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100 hover:shadow-xl transition">
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+            <div class="bg-white rounded-2xl shadow-lg p-3 sm:p-5 border border-gray-100 hover:shadow-xl transition">
+                <!-- Header: Stays compact on mobile -->
+                <div class="flex flex-row items-center justify-between gap-2 mb-4">
+                    <!-- Heading -->
+                    <h2 class="text-sm sm:text-lg font-semibold text-gray-800 flex items-center gap-2">
+                        <span class="bg-indigo-100 p-1.5 sm:p-2 rounded-lg shrink-0">
+                            <i data-lucide="calendar-days" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600"></i>
+                        </span>
+                        <span class="truncate">Last 5 Days</span>
+                    </h2>
 
-                      <!-- 🔹 Heading -->
-                  <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                      <span class="bg-indigo-100 p-2 rounded-lg">
-                          <i data-lucide="calendar-days" class="w-4 h-4 text-indigo-600"></i>
-                      </span>
-                      Last 5 Days
-                  </h2>
+                    <!-- Compact Filter Form -->
+                    <form method="GET" class="flex items-center gap-2 bg-gray-50 px-2 py-1.5 sm:px-3 sm:py-2 rounded-xl border shadow-sm">
+                        <div class="flex flex-col">
+                            <span class="text-[9px] text-gray-400 uppercase font-bold leading-none">Day</span>
+                            <input type="date" name="date"
+                                value="{{ $selectedDate->toDateString() }}"
+                                class="text-[11px] sm:text-xs border-0 bg-transparent focus:ring-0 p-0 w-24 sm:w-auto">
+                        </div>
 
-                  <!-- 🔹 Compact Filter -->
-                  <form method="GET" class="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-xl border shadow-sm">
+                        <div class="h-5 w-px bg-gray-300"></div>
 
-                      <!-- Date Input -->
-                      <div class="flex flex-col">
-                          <span class="text-[10px] text-gray-400 leading-none">Day</span>
-                          <input type="date" name="date"
-                              value="{{ $selectedDate->toDateString() }}"
-                              class="text-xs border-0 bg-transparent focus:ring-0 p-0">
-                      </div>
-
-                      <!-- Divider -->
-                      <div class="h-6 w-px bg-gray-300"></div>
-
-                      <!-- Button -->
-                      <button class="flex items-center justify-center bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700 transition">
-                          <i data-lucide="search" class="w-4 h-4"></i>
-                      </button>
-
-                  </form>
-
+                        <button class="flex items-center justify-center bg-indigo-600 text-white p-1.5 rounded-lg hover:bg-indigo-700 transition">
+                            <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                        </button>
+                    </form>
                 </div>
 
+                <!-- Table Container -->
                 <div class="overflow-x-auto">
-
-                    <table class="w-full text-sm">
+                    <table class="w-full text-[11px] table-auto sm:text-sm">
                         <thead>
-                            <tr class="text-gray-500 border-b">
-                                <th class="py-2 text-left">Date</th>
-                                <th>egg</th>
-                                <th>feed</th>
-                                <th>mortality</th>
-                                <th>income</th>
-                                <th>expense</th>
-                                <th>📈</th>
+                            <tr class="text-gray-400 border-b uppercase text-[9px] sm:text-[11px]">
+                                <th class="py-2 text-left font-bold">Date</th>
+                                <th class="py-2 text-center">Egg</th>
+                                <th class="py-2 text-center">Feed</th>
+                                <th class="py-2 text-center">Mort.</th>
+                                <th class="py-2 text-center">Income</th>
+                                <th class="py-2 text-center">Exp.</th>
+                                <th class="py-2 text-right">Profit</th>
                             </tr>
                         </thead>
 
-                        <tbody>
+                        <tbody class="divide-y divide-gray-50">
                             @foreach($dailySummaries as $day)
-                            <tr class="border-b hover:bg-gray-50 transition">
-                                <td class="py-2 font-medium text-gray-700">{{ $day->date }}</td>
-                                <td class="text-center text-blue-600"> <span class="bg-indigo-100 p-2 rounded-xl"> {{ $day->eggs }} </span></td>
-                                <td class="text-center">{{ $day->feed }}</td>
-                                <td class="text-center">{{ $day->mortality }}</td>
-                                <td class="text-center font-semibold">{{ number_format($day->income, 2) }}</td>
-                                <td class="text-center font-semibold">{{ number_format($day->expense, 2) }}</td>
-                                <td class="text-center font-bold 
-                                    {{ $day->profit >= 0 ? 'text-green-600' : 'text-red-600' }}">
-                                    {{ number_format($day->profit, 2) }}
+                            <tr class="hover:bg-gray-50/50 transition">
+                                <!-- whitespace-nowrap prevents date from breaking into two lines -->
+                                <td class="py-3 font-medium text-gray-700 whitespace-nowrap">
+                                    {{ \Carbon\Carbon::parse($day->date)->format('M d') }}
                                 </td>
-                            </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-
-
-                </div>
-            </div>
-
-            <!-- 📆 MONTHLY -->
-            <div class="bg-white rounded-2xl shadow-lg p-4 border border-gray-100 hover:shadow-xl transition">
-
-                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
-
-                                <!-- 🔹 Heading -->
-                                <h2 class="text-lg font-semibold text-gray-800 flex items-center gap-2">
-                                    <span class="bg-indigo-100 p-2 rounded-lg">
-                                        <i data-lucide="calendar" class="w-4 h-4 text-indigo-600"></i>
+                                
+                                <td class="text-center">
+                                    <span class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded-lg font-bold">
+                                        {{ $day->eggs }}
                                     </span>
-                                    Last 5 Months
-                                </h2>
+                                </td>
 
-                                <!-- 🔹 Compact Filter -->
-                                <form method="GET" class="flex items-center gap-2 bg-gray-50 px-3 py-2 rounded-xl border shadow-sm">
-
-                                    <!-- Date Input -->
-                                    <div class="flex flex-col">
-                                        <span class="text-[10px] text-gray-400 leading-none">Day</span>
-                                        <input type="month" name="month"
-                                          value="{{ $selectedMonth->format('Y-m') }}"
-                                            class="text-xs border-0 bg-transparent focus:ring-0 p-0">
-                                    </div>
-
-                                    <!-- Divider -->
-                                    <div class="h-6 w-px bg-gray-300"></div>
-
-                                    <!-- Button -->
-                                    <button class="flex items-center justify-center bg-indigo-600 text-white p-2 rounded-lg hover:bg-indigo-700 transition">
-                                        <i data-lucide="search" class="w-4 h-4"></i>
-                                    </button>
-
-                                </form>
-
-                </div>
-
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm">
-                        <thead>
-                            <tr class="text-gray-500 border-b">
-                                <th class="py-2 text-left">Month</th>
-                                <th>egg</th>
-                                <!-- <th>cracks</th> -->
-                                <th>feed</th>
-                                <th>mortality</th>
-                                <th>income</th>
-                                <th>expense</th>
-                                <th>📈</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            @foreach($monthlySummaries as $month)
-                            <tr class="border-b hover:bg-gray-50 transition">
-                                <td class="py-2 font-semibold text-gray-1000">{{ $month->month }}</td>
-                                <td class="text-center">{{ $month->eggs }}</td>
-                                <!-- <td class="text-center">{{ $month->cracks }}</td> -->
-                                <td class="text-center">{{ $month->feed }}</td>
-                                <td class="text-center text-red-500">{{ $month->mortality }}</td>
-                                <td class="text-center font-semibold">{{ number_format($month->income, 2) }}</td>
-                                <td class="text-center font-semibold">{{ number_format($month->expense, 2) }}</td>
-                                <td class="text-center font-bold 
-                                    {{ $month->profit >= 0 ? 'text-green-600' : 'text-red-600' }}">
-                                    {{ number_format($month->profit, 2) }}
+                                <td class="text-center text-gray-600">{{ $day->feed }}</td>
+                                
+                                <td class="text-center text-red-500">{{ $day->mortality }}</td>
+                                
+                                <td class="text-center font-medium text-gray-700">
+                                    {{ number_format($day->income, 0) }} <!-- Removed decimals for mobile space -->
+                                </td>
+                                
+                                <td class="text-center font-medium text-gray-700">
+                                    {{ number_format($day->expense, 0) }}
+                                </td>
+                                
+                                <td class="text-right font-bold {{ $day->profit >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                    {{ number_format($day->profit, 0) }}
                                 </td>
                             </tr>
                             @endforeach
@@ -318,6 +254,83 @@
                     </table>
                 </div>
             </div>
+            <!-- 📆 MONTHLY -->
+        <div class="bg-white rounded-2xl shadow-lg p-3 sm:p-4 border border-gray-100 hover:shadow-xl transition">
+            <div class="flex flex-row items-center justify-between gap-2 mb-4">
+                <!-- Heading -->
+                <h2 class="text-sm sm:text-lg font-semibold text-gray-800 flex items-center gap-2">
+                    <span class="bg-indigo-100 p-1.5 sm:p-2 rounded-lg shrink-0">
+                        <i data-lucide="calendar" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600"></i>
+                    </span>
+                    <span class="truncate">Last 5 Months</span>
+                </h2>
+
+                <!-- Compact Filter -->
+                <form method="GET" class="flex items-center gap-1.5 bg-gray-50 px-2 py-1 sm:px-3 sm:py-2 rounded-xl border shadow-sm shrink-0">
+                    <div class="flex flex-col">
+                        <span class="text-[9px] text-gray-400 leading-none">Month</span>
+                        <input type="month" name="month"
+                            value="{{ $selectedMonth->format('Y-m') }}"
+                            class="text-[10px] sm:text-xs border-0 bg-transparent focus:ring-0 p-0 w-20 sm:w-auto">
+                    </div>
+                    <div class="h-5 w-px bg-gray-300"></div>
+                    <button class="bg-indigo-600 text-white p-1.5 rounded-lg hover:bg-indigo-700 transition">
+                        <i data-lucide="search" class="w-3.5 h-3.5"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="overflow-x-auto">
+                <!-- table-auto + tight px-1 padding collapses the gap between columns -->
+                <table class="w-full table-auto text-[11px] sm:text-sm">
+                    <thead>
+                        <tr class="text-gray-400 border-b uppercase text-[9px] sm:text-[10px] tracking-wider">
+                            <th class="py-2 text-left pr-2 font-bold">Month</th>
+                            <th class="px-1 py-2 text-center">Egg</th>
+                            <th class="px-1 py-2 text-center">Feed</th>
+                            <th class="px-1 py-2 text-center">Mort.</th>
+                            <th class="px-1 py-2 text-center">Income</th>
+                            <th class="px-1 py-2 text-center">Exp.</th>
+                            <th class="px-1 py-2 text-right">Profit</th>
+                        </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-gray-50">
+                        @foreach($monthlySummaries as $month)
+                        <tr class="hover:bg-gray-50/50 transition">
+
+                            <td class="py-2 font-semibold text-gray-800 whitespace-nowrap">
+                                 {{ \Carbon\Carbon::parse($month->month)->format('M y') }}
+                             </td>
+                            
+                            <td class="px-1 text-center whitespace-nowrap">
+                                <span class="bg-indigo-50 text-indigo-700 px-1.5 py-0.5 rounded text-[10px] sm:text-xs font-bold">
+                                    {{ $month->eggs }}
+                                </span>
+                            </td>
+
+                            <td class="px-1 text-center whitespace-nowrap text-gray-600">{{ $month->feed }}</td>
+                            
+                            <td class="px-1 text-center text-red-500 whitespace-nowrap">{{ $month->mortality }}</td>
+                            
+                            <!-- Removed decimals to save horizontal space -->
+                            <td class="px-1 text-center font-medium text-gray-700 whitespace-nowrap">
+                                {{ number_format($month->income, 0) }}
+                            </td>
+                            
+                            <td class="px-1 text-center font-medium text-gray-700 whitespace-nowrap">
+                                {{ number_format($month->expense, 0) }}
+                            </td>
+                            
+                            <td class="px-1 text-right font-bold whitespace-nowrap {{ $month->profit >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                {{ number_format($month->profit, 0) }}
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
 
 
