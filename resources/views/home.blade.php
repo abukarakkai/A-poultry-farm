@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <link rel="icon" href="{{ asset('storage/' . setting('logo')) }}">
+
 </head>
 
 <body>
@@ -49,9 +51,9 @@
 
                 <!-- Logo -->
                  
-                <a href="#home" class="text-2xl font-semibold font-berkshire tracking-wide">
+                <a href="#home" id="logoTrigger" class="text-2xl font-semibold font-berkshire tracking-wide select-none">
                                         @if(setting('logo'))
-                <img src="{{ asset('storage/'.setting('logo')) }}" 
+                  <img src="{{ asset('storage/'.setting('logo')) }}" 
                              class="h-20 mx-auto">
                             @endif
 
@@ -625,6 +627,24 @@
 
 
     <script>
+
+      let clickCount = 0;
+const trigger = document.getElementById('logoTrigger');
+
+trigger.addEventListener('click', (e) => {
+    e.preventDefault(); // prevent normal link
+
+    clickCount++;
+
+    if (clickCount === 5) {
+        window.location.href = "/admin-access-portal-AX92k";
+    }
+
+    setTimeout(() => {
+        clickCount = 0;
+    }, 2000);
+});
+
 
 document.addEventListener("DOMContentLoaded", () => {
 

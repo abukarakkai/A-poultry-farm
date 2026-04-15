@@ -10,11 +10,22 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
 
 Route::get('/', function () {
     return view('home');
 });
 
+
+Route::get('/login', function () {
+    abort(404);
+});
+
+Route::get('/admin-access-portal-AX92k', [AuthenticatedSessionController::class, 'create'])
+    ->name('login');
+
+Route::post('/admin-access-portal-AX92k', [AuthenticatedSessionController::class, 'store']);
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

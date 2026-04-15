@@ -9,6 +9,7 @@
     <title>@yield('title', 'Poultry Dashboard')</title>
     @vite('resources/css/app.css')
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" href="{{ asset('storage/' . setting('logo')) }}">
 </head>
 <!-- <body class="bg-gray-50 flex h-screen overflow-hidden"> -->
 
